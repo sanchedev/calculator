@@ -6,16 +6,19 @@ textBoxContainer.addEventListener('click', () => {
 })
 
 textBoxContainer.addEventListener('keydown', (ev) => {
-  ev.preventDefault()
+  let element: HTMLElement | null = null
 
   if (ev.key === 'Enter') {
-    document.querySelector<HTMLButtonElement>('[data-key="="]')?.click()
-    return
-  }
-
-  document
-    .querySelector<HTMLButtonElement>(
+    element = document.querySelector<HTMLButtonElement>('[data-key="="]')
+  } else {
+    element = document.querySelector<HTMLButtonElement>(
       '[data-key="' + ev.key.toLowerCase() + '"]',
     )
-    ?.click()
+  }
+
+  if (element == null) return
+
+  ev.preventDefault()
+
+  element.click()
 })
