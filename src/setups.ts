@@ -110,7 +110,24 @@ export function setupGeneralAction(button: HTMLButtonElement, action: string) {
         render()
       })
       break
-
+    case 'b':
+      button.addEventListener('click', () => {
+        uniaction((num) => {
+          if (num === '0') {
+            calcState.operator = null
+            return num
+          }
+          return num.slice(0, -1) || '0'
+        })
+        if (calcState.operator == null) {
+          calcState.secondNum = null
+        }
+        if (calcState.secondNum === '0') {
+          calcState.secondNum = null
+        }
+        render()
+      })
+      break
     default:
       break
   }
