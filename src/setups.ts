@@ -7,12 +7,15 @@ export function setupNumbers(button: HTMLButtonElement) {
   const num = Number(button.dataset.action)
 
   button.addEventListener('click', () => {
-    // Si el número actual es 0
+    // Si el número actual es 0, NaN o Infinity
     //   se reemplazará por el número pulsado
     // Sino
     //   el número pulsado se agregará al final
     uniaction((n) => {
       if (n === '0') return num.toString()
+      if (n === 'NaN') return num.toString()
+      if (n === 'Infinity') return num.toString()
+      if (n === '-Infinity') return num.toString()
       return n + num
     })
     // Siempre que se modifique el estado
@@ -43,6 +46,13 @@ export function setupAction(button: HTMLButtonElement) {
 /** Hace la configuración inical de para los botones con función de operadores (+, -, × y ÷) */
 export function setupOperator(button: HTMLButtonElement, operator: Operator) {
   button.addEventListener('click', () => {
+    const n = Number(calcState.firstNum)
+
+    if (isNaN(n) || !isFinite(n)) {
+      // Si el primer número no es un número válido entonces se ignora el operador
+      return
+    }
+
     if (calcState.secondNum != null) {
       // Si el estado ya estaba lleno entonces
       // se va a calcular el resultado y se
@@ -144,9 +154,19 @@ export function setupGeneralAction(button: HTMLButtonElement, action: string) {
  * })
  */
 function uniaction(fun: (num: string) => string) {
+  const parse = (num: string) => {
+    const n = Number(calcState.firstNum)
+
+    if (isNaN(n) || !isFinite(n)) {
+      return '0'
+    }
+
+    return num
+  }
+
   if (calcState.operator != null) {
-    calcState.secondNum = fun(calcState.secondNum ?? '0')
+    calcState.secondNum = fun(parse(calcState.secondNum ?? '0'))
   } else {
-    calcState.firstNum = fun(calcState.firstNum)
+    calcState.firstNum = fun(parse(calcState.firstNum))
   }
 }
