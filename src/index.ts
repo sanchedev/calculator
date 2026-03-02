@@ -1,5 +1,6 @@
 import { setupAction, setupNumbers } from './setups.js'
 import { calc, render } from './state.js'
+import './key-event.js'
 
 const buttons = document.querySelectorAll<HTMLButtonElement>('button')
 

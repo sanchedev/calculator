@@ -11,6 +11,8 @@ const textBox = document.querySelector<HTMLDivElement>('#textbox')!
 
 if (textBox == null) throw new Error('Error')
 
+export { textBox }
+
 /** Función que renderiza el estado de la calculadora a un texto usado en el nodo `#textbox` en el DOM. */
 export function render() {
   // Se crea una variable que contendrá el texto

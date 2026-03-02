@@ -67,6 +67,12 @@ main {
     max-width: 100%;
     text-overflow: ellipsis;
     color: color-mix(in oklab, cadetblue 50%, black);
+    font-size: 2.5rem;
+    font-family: monospace;
+  }
+
+  &:focus {
+    outline: 0.25rem solid lightgray;
   }
 }
 .numbers-container {
