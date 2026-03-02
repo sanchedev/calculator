@@ -20,25 +20,26 @@ const parseNumber = (num: string, length: number = 4) => {
 
 const MAX_LENGTH = 11
 
-function parseState() {
+function parseState(maxLength: number = MAX_LENGTH) {
   const firstNum = calcState.firstNum
   const operator = calcState.operator
   const secondNum = calcState.secondNum
 
-  if (operator == null) return parseNumber(firstNum, MAX_LENGTH)
+  if (operator == null) return parseNumber(firstNum, maxLength)
   if (secondNum == null)
-    return `${parseNumber(firstNum, MAX_LENGTH - 2)} ${operator}`
+    return `${parseNumber(firstNum, maxLength - 2)} ${operator}`
   const firstNumLength = Math.max(
     Math.min(4, firstNum.length),
-    MAX_LENGTH - (3 + secondNum.length),
+    maxLength - (3 + secondNum.length),
   )
-  const secondNumLength = MAX_LENGTH - (3 + firstNumLength)
+  const secondNumLength = maxLength - (3 + firstNumLength)
 
   return `${parseNumber(firstNum, firstNumLength)} ${operator} ${parseNumber(secondNum, secondNumLength)}`
 }
 /** Función que renderiza el estado de la calculadora a un texto usado en el nodo `#textbox` en el DOM. */
 export function render() {
   textBox.innerText = parseState()
+  textBox.ariaLabel = parseState(Infinity)
 }
 
 /** Función que calcula con base a los números del estado un número resultado que reemplazará al primer número en este. Además limpiará el estado para próximas operaciones. */
