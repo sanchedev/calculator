@@ -60,12 +60,15 @@ main {
   align-items: center;
   justify-content: end;
   overflow-x: hidden;
+  overflow-y: hidden;
 
   div {
     text-align: start;
     overflow-x: hidden;
     max-width: 100%;
     text-overflow: ellipsis;
+    text-wrap: none;
+    white-space: none;
     color: color-mix(in oklab, cadetblue 50%, black);
     font-size: 2.5rem;
     font-family: monospace;

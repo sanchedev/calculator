@@ -13,24 +13,32 @@ if (textBox == null) throw new Error('Error')
 
 export { textBox }
 
+const parseNumber = (num: string, length: number = 4) => {
+  if (num.length <= length) return num
+  return num.slice(0, length - 1) + '…'
+}
+
+const MAX_LENGTH = 11
+
+function parseState() {
+  const firstNum = calcState.firstNum
+  const operator = calcState.operator
+  const secondNum = calcState.secondNum
+
+  if (operator == null) return parseNumber(firstNum, MAX_LENGTH)
+  if (secondNum == null)
+    return `${parseNumber(firstNum, MAX_LENGTH - 2)} ${operator}`
+  const firstNumLength = Math.max(
+    Math.min(4, firstNum.length),
+    MAX_LENGTH - (3 + secondNum.length),
+  )
+  const secondNumLength = MAX_LENGTH - (3 + firstNumLength)
+
+  return `${parseNumber(firstNum, firstNumLength)} ${operator} ${parseNumber(secondNum, secondNumLength)}`
+}
 /** Función que renderiza el estado de la calculadora a un texto usado en el nodo `#textbox` en el DOM. */
 export function render() {
-  // Se crea una variable que contendrá el texto
-  let string = calcState.firstNum
-
-  // Si hay operador se añade al texto
-  if (calcState.operator != null) {
-    string += ' ' + calcState.operator
-  }
-
-  // Si hay segundo número se añade al texto
-  if (calcState.secondNum != null) {
-    string += ' ' + calcState.secondNum
-  }
-
-  // Se reemplaza el texto interno de la
-  // caja de texto con la variable de texto
-  textBox.innerText = string
+  textBox.innerText = parseState()
 }
 
 /** Función que calcula con base a los números del estado un número resultado que reemplazará al primer número en este. Además limpiará el estado para próximas operaciones. */
