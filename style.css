@@ -44,7 +44,7 @@ main {
   gap: 2rem;
 }
 
-.textbox-container {
+#textbox-container {
   aspect-ratio: 4 / 1;
   width: 100%;
   background-color: cadetblue;
@@ -62,13 +62,10 @@ main {
   overflow-x: hidden;
 
   div {
-    font-size: 2.5rem;
-    font-family: monospace;
     text-align: start;
     overflow-x: hidden;
     max-width: 100%;
     text-overflow: ellipsis;
-
     color: color-mix(in oklab, cadetblue 50%, black);
   }
 }
